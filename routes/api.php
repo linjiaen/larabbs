@@ -16,7 +16,7 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::prefix('v1')->name('api.v1.')->group(function() {
+Route::prefix('v1')->name('api.v1.')->group(function () {
 });
 
 Route::prefix('v2')->name('api.v2.')->group(function () {
@@ -24,3 +24,10 @@ Route::prefix('v2')->name('api.v2.')->group(function () {
         return 'this is version v2';
     })->name('version');
 });
+//用户注册
+Route::post('users', 'UsersController@store')
+    ->name('users.store');
+// 第三方登录
+Route::post('socials/{social_type}/authorizations', 'AuthorizationsController@socialStore')
+    ->where('social_type', 'weixin')
+    ->name('socials.authorizations.store');
